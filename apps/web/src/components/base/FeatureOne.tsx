@@ -16,12 +16,12 @@ interface FeatureOneProps {
 
 export default function FeatureOne({ title, subTitle, description }: FeatureOneProps) {
     return (
-        <div className="flex flex-col items-start justify-center h-[100vh] pl-16">
+        <div className="flex flex-col items-start justify-center h-[100vh] pl-4 md:pl-16">
             <div className="max-w-[32rem]">
                 <h1
                     className={cn(
                         doto.className,
-                        'text-6xl font-black tracking-wider text-left text-light/70 flex items-end relative w-fit',
+                        'text-4xl md:text-6xl font-black tracking-wider text-left text-light/70 flex items-end relative w-fit',
                     )}
                 >
                     {title}

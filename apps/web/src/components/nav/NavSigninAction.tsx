@@ -30,7 +30,7 @@ export default function NavbarSigninAction() {
                 <Button
                     onClick={handler}
                     className={cn(
-                        'text-[13px] font-semibold tracking-wide flex items-center justify-center transition-transform hover:-translate-y-0.5 cursor-pointer z-[10] pr-1 rounded-lg',
+                        'text-[13px] font-semibold tracking-wide flex items-center justify-center transition-transform hover:-translate-y-0.5 cursor-pointer z-[10] pr-1 rounded-[8px]',
                         'bg-primary',
                     )}
                 >
