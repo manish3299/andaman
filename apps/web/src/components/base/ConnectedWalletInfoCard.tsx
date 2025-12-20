@@ -21,16 +21,14 @@ export function ConnectedWalletInfoCard() {
     const [_isAnimating, setIsAnimating] = useState<boolean>(false);
     const [balance, setBalance] = useState<number | null>(null);
 
-    // Fetch SOL balance
     useEffect(() => {
         if (publicKey) {
             connection.getBalance(publicKey).then((lamports: number) => {
-                setBalance(lamports / 1e9); // lamports → SOL
+                setBalance(lamports / 1e9); 
             });
         }
     }, [publicKey, connection]);
 
-    // Animation logic (keep your GSAP transitions)
     useLayoutEffect(() => {
         const container = ContainerRef.current;
         const wrapper = TransitionWrapperRef.current;

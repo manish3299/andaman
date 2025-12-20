@@ -7,7 +7,6 @@ export default class Playground {
     static async get_chat(token: string, contractId: string) {
         const { upsertMessage } = useBuilderChatStore.getState();
         const { parseFileStructure, setCollapseFileTree } = useCodeEditor.getState();
-
         try {
             if (!token) return;
             const { data } = await axios.post(

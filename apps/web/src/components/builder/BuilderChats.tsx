@@ -2,17 +2,22 @@
 import BuilderChatInput from './BuilderChatInput';
 import { useBuilderChatStore } from '@/src/store/code/useBuilderChatStore';
 import { useParams } from 'next/navigation';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useChatStore } from '@/src/store/user/useChatStore';
 import BuilderMessage from './BuilderMessage';
 import useGenerate from '@/src/hooks/useGenerate';
 import { useCurrentContract } from '@/src/hooks/useCurrentContract';
+import { useUserSessionStore } from '@/src/store/user/useUserSessionStore';
+import Playground from '@/src/lib/server/playground';
+import BuilderChatSkeletons from './BuilderChatSkeletons';
 
 export default function BuilderChats() {
     const params = useParams();
     const contractId = params.contractId as string;
     const hasInitialized = useRef<boolean>(false);
     const messageEndRef = useRef<HTMLDivElement>(null);
+    const [chatLoading, setChatLoading] = useState<boolean>(false);
+    const { session } = useUserSessionStore();
     const { setContractId } = useChatStore();
     const { handleGeneration } = useGenerate();
     const contract = useCurrentContract();
@@ -25,6 +30,17 @@ export default function BuilderChats() {
             messageEndRef.current.scrollIntoView({ behavior: 'smooth' });
         }
     }, [messages]);
+
+    useEffect(() => {
+        async function fetchChats() {
+            if (contract.loading || !session || !session.user || !session.user.token) return;
+            setChatLoading(true);
+            await Playground.get_chat(session.user.token, contractId);
+            setChatLoading(false);
+        }
+        fetchChats();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [contractId, session]);
 
     useEffect(() => {
         if (hasInitialized.current) {
@@ -59,17 +75,23 @@ export default function BuilderChats() {
             style={{ height: 'calc(100vh - 3.5rem)' }}
         >
             <div className="flex-1 flex flex-col gap-y-3 text-light text-sm pl-4 overflow-y-auto min-h-0 custom-scrollbar">
-                {messages.map((message) => (
-                    <BuilderMessage
-                        returnParsedData={returnParsedData}
-                        key={message.id}
-                        message={message}
-                        loading={loading}
-                    />
-                ))}
+                {
+                    chatLoading ? (
+                        <BuilderChatSkeletons loading={chatLoading} />
+                    ) : (<>
+                        {messages.map((message) => (
+                            <BuilderMessage
+                                returnParsedData={returnParsedData}
+                                key={message.id}
+                                message={message}
+                                loading={loading}
+                            />
+                        ))}
+                    </>)
+                }
                 <div ref={messageEndRef} />
             </div>
-            <div className="flex items-center justify-center w-full py-4 px-6 flex-shrink-0 relative">
+            <div className="flex items-center justify-center w-full py-4 px-6 shrink-0 relative">
                 <BuilderChatInput />
             </div>
         </div>
