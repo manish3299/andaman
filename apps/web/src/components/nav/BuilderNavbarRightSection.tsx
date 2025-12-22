@@ -67,7 +67,7 @@ export default function BuilderNavbarRightSection() {
     return (
         <div className="flex items-center justify-between gap-x-3 relative">
             <div className="flex items-center justify-center">
-                <ToolTipComponent content="deploy your contract" side="bottom">
+                <ToolTipComponent content="upcoming" side="bottom">
                     <Button
                         disabled={loading}
                         onClick={() => setOpenWalletPanel(true)}

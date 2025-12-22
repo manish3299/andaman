@@ -1,5 +1,4 @@
 import { LiaServicestack } from 'react-icons/lia';
-import { FaTwitter } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import { cn } from '@/src/lib/utils';
 import { doto } from './FeatureOne';
@@ -7,6 +6,7 @@ import PublicReviewCard from './PublicReviewCard';
 import ToolTipComponent from '../ui/TooltipComponent';
 import VersionLockTicker from '../tickers/VersionLockTicker';
 import Link from 'next/link';
+import { FaXTwitter } from 'react-icons/fa6';
 
 const footerLinks = [
     {
@@ -34,7 +34,7 @@ const footerLinks = [
         links: [
             {
                 name: 'Twitter',
-                icon: FaTwitter,
+                icon: FaXTwitter,
                 link: 'https://x.com/winterfell_dev',
                 tooltip: '@winterfell_dev',
             },
@@ -128,7 +128,7 @@ export default function Footer() {
                     <LiaServicestack className="text-primary md:h-52 md:w-52 h-12 w-12 transition-all duration-500" />
                 </div>
                 <p className="text-neutral-500 md:text-sm text-xs tracking-wider mt-4 text-center px-4">
-                    © 2024 Winterfell. Powered by AI + Solana.
+                    © 2025 Winterfell. Powered by AI + Solana.
                 </p>
             </div>
         </motion.div>
