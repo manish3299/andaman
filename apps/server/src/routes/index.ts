@@ -43,7 +43,7 @@ router.get('/health', RateLimit.health_check_rate_limit, async (_req: Request, r
 // <------------------------- CONTRACT-ROUTES ------------------------->
 router.post(
     '/generate',
-    // RateLimit.generate_contract_rate_limit,
+    RateLimit.generate_contract_rate_limit,
     authMiddleware,
     DailyRateLimit.generate_contract_daily_limit,
     DailyRateLimit.contract_messages_limit,
@@ -51,13 +51,13 @@ router.post(
 );
 router.post(
     '/contract/get-chat',
-    // RateLimit.get_chat_rate_limit,
+    RateLimit.get_chat_rate_limit,
     authMiddleware,
     get_chat_controller,
 );
 router.post(
     '/plan',
-    // RateLimit.plan_executor_rate_limit,
+    RateLimit.plan_executor_rate_limit,
     authMiddleware,
     plan_executor_controller,
 );
