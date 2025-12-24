@@ -8,7 +8,9 @@ interface BuilderMessageSkeletonProps {
     loading: boolean;
 }
 
-export default function BuilderMessageSkeleton({ loading }: BuilderMessageSkeletonProps): JSX.Element {
+export default function BuilderMessageSkeleton({
+    loading,
+}: BuilderMessageSkeletonProps): JSX.Element {
     if (!loading) {
         return <></>;
     }

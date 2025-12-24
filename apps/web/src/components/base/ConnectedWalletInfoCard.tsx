@@ -24,7 +24,7 @@ export function ConnectedWalletInfoCard() {
     useEffect(() => {
         if (publicKey) {
             connection.getBalance(publicKey).then((lamports: number) => {
-                setBalance(lamports / 1e9); 
+                setBalance(lamports / 1e9);
             });
         }
     }, [publicKey, connection]);
