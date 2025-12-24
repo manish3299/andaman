@@ -75,10 +75,10 @@ export default function BuilderChats() {
             style={{ height: 'calc(100vh - 3.5rem)' }}
         >
             <div className="flex-1 flex flex-col gap-y-3 text-light text-sm pl-4 overflow-y-auto min-h-0 custom-scrollbar">
-                {
-                    chatLoading ? (
-                        <BuilderChatSkeletons loading={chatLoading} />
-                    ) : (<>
+                {chatLoading ? (
+                    <BuilderChatSkeletons loading={chatLoading} />
+                ) : (
+                    <>
                         {messages.map((message) => (
                             <BuilderMessage
                                 returnParsedData={returnParsedData}
@@ -87,8 +87,8 @@ export default function BuilderChats() {
                                 loading={loading}
                             />
                         ))}
-                    </>)
-                }
+                    </>
+                )}
                 <div ref={messageEndRef} />
             </div>
             <div className="flex items-center justify-center w-full py-4 px-6 shrink-0 relative">
