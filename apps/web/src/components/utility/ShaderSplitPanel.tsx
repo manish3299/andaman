@@ -15,7 +15,8 @@ export default function ShaderSplitPanel({
     return (
         <div
             className={cn(
-                'max-w-[800px] w-full h-[500px]',
+                'max-w-[350px] md:max-w-[800px] w-full ',
+                'h-[300px] md:h-[500px]',
                 'bg-linear-to-b from-[#0a0a0a] via-darkest to-[#0d0d0d]',
                 'rounded-[8px] grid grid-cols-2',
                 'overflow-hidden shadow-2xl',
@@ -36,7 +37,8 @@ export default function ShaderSplitPanel({
             <div className="col-span-1">
                 <div
                     className={cn(
-                        'w-full max-w-[420px] px-10 py-8',
+                        'w-full max-w-[420px]',
+                        'px-5 md:px-10 py-2 md:py-8',
                         'flex flex-col items-center justify-center',
                         'z-50 relative overflow-hidden h-full',
                     )}
