@@ -28,7 +28,7 @@ function LoginLeftContent() {
     return (
         <div className="absolute inset-0 flex flex-col justify-between p-6 md:p-8">
             <div className="flex items-start">
-                <AppLogo />
+                <AppLogo className='text-sm' />
             </div>
 
             <div className="space-y-2 md:space-y-4 text-left">
@@ -44,21 +44,20 @@ function LoginLeftContent() {
                 </p>
 
                 <div className="flex items-center gap-2 mb-2">
-                    <IoSparkles
-                        className={cn(
-                            'text-[#9e83ff] text-xl md:h-10 md:w-10 p-2 border border-neutral-500 rounded-[8px]',
-                        )}
-                    />
-                    <SiRust
-                        className={cn(
-                            'text-[#ff6b35] text-xl md:h-10 md:w-10 p-2 border border-neutral-500 rounded-[8px]',
-                        )}
-                    />
-                    <SiSolana
-                        className={cn(
-                            'text-[#14F195] text-xl md:h-10 md:w-10 p-2 border border-neutral-500 rounded-[8px]',
-                        )}
-                    />
+                    {logos.map((l, i) => (
+                        <div
+                            key={i}
+                            className={cn(
+                            `text-[${l.color}] text-xl h-6 md:h-10 w-6 md:w-10 p-1 md:p-2 border-[0.5px] md:border border-neutral-500 rounded-[8px]`,
+                            'flex justify-center items-center'
+                        )}>
+                            <l.logo
+                                className={cn(
+                                    'size-4 md:size-5'
+                                )}
+                            />
+                        </div>
+                    ))}
                 </div>
             </div>
         </div>
