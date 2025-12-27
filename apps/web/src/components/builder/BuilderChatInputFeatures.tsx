@@ -1,25 +1,22 @@
-import { useExecutorStore } from "@/src/store/model/useExecutorStore"
-import ExecutorSelect from "../base/ExecutorSelect"
-import { Button } from "../ui/button";
-import { useRef, useState } from "react";
-import useGenerate from "@/src/hooks/useGenerate";
-import { useParams } from "next/navigation";
-import { useLimitStore } from "@/src/store/code/useLimitStore";
-import { useHandleClickOutside } from "@/src/hooks/useHandleClickOutside";
-import { ArrowRight, FileCode } from "lucide-react";
-import { cn } from "@/src/lib/utils";
-import { useBuilderChatStore } from "@/src/store/code/useBuilderChatStore";
-import { useCurrentContract } from "@/src/hooks/useCurrentContract";
-import { useUserSessionStore } from "@/src/store/user/useUserSessionStore";
-import { GoPlus } from "react-icons/go";
-import BuilderMoreOptionsPanel from "./BuilderMoreOptionsPanel";
-import BuilderTemplatesPanel from "./BuilderTemplatesPanel";
-import { ChatRole } from "@winterfell/types";
-
-
+import { useExecutorStore } from '@/src/store/model/useExecutorStore';
+import ExecutorSelect from '../base/ExecutorSelect';
+import { Button } from '../ui/button';
+import { useRef, useState } from 'react';
+import useGenerate from '@/src/hooks/useGenerate';
+import { useParams } from 'next/navigation';
+import { useLimitStore } from '@/src/store/code/useLimitStore';
+import { useHandleClickOutside } from '@/src/hooks/useHandleClickOutside';
+import { ArrowRight, FileCode } from 'lucide-react';
+import { cn } from '@/src/lib/utils';
+import { useBuilderChatStore } from '@/src/store/code/useBuilderChatStore';
+import { useCurrentContract } from '@/src/hooks/useCurrentContract';
+import { useUserSessionStore } from '@/src/store/user/useUserSessionStore';
+import { GoPlus } from 'react-icons/go';
+import BuilderMoreOptionsPanel from './BuilderMoreOptionsPanel';
+import BuilderTemplatesPanel from './BuilderTemplatesPanel';
+import { ChatRole } from '@winterfell/types';
 
 export default function BuilderChatInputFeatures() {
-
     const [inputValue, setInputValue] = useState<string>('');
     const { executor, setExecutor } = useExecutorStore();
     const [openLoginModal, setOpenLoginModal] = useState<boolean>(false);
@@ -64,14 +61,13 @@ export default function BuilderChatInputFeatures() {
 
     function handleMoreOptions() {
         setShowMoreOptionsPanel(!showMoreOptionsPanel);
-    }    
+    }
 
     return (
-        <div className="relative group w-full flex flex-col">
+        <div className=" w-full flex flex-col">
             <div className="flex items-center justify-between px-4 py-2.5 ">
                 <div className="flex items-center gap-x-1">
-
-                    <div className='hidden sm:flex items-center gap-x-1'>
+                    <div className="hidden sm:flex items-center gap-x-1">
                         <ExecutorSelect value={executor} onChange={setExecutor} />
                         <Button
                             type="button"
@@ -97,7 +93,7 @@ export default function BuilderChatInputFeatures() {
                     </div>
                 </div>
 
-                <div className='flex gap-x-1'>
+                <div className="flex gap-x-1">
                     <Button
                         type="button"
                         onClick={handleMoreOptions}
@@ -137,13 +133,13 @@ export default function BuilderChatInputFeatures() {
             )}
 
             {showMoreOptionsPanel && (
-                    <div >
-                        <BuilderMoreOptionsPanel
-                            close={() => setShowTemplatePanel(false)}
-                            className="max-w-[21rem] bottom-16 "
-                        />
-                    </div>
+                <div>
+                    <BuilderMoreOptionsPanel
+                        close={() => setShowTemplatePanel(false)}
+                        className="max-w-[21rem] bottom-16 "
+                    />
+                </div>
             )}
-        </div >
+        </div>
     );
 }

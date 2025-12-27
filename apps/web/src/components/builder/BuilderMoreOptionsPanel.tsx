@@ -1,18 +1,19 @@
-import { cn } from "@/src/lib/utils";
-import ExecutorSelect from "../base/ExecutorSelect";
-import { useExecutorStore } from "@/src/store/model/useExecutorStore";
-import { GoChevronRight, GoInfinity } from "react-icons/go";
-import { Button } from "../ui/button";
-import { FileCode } from "lucide-react";
-
+import { cn } from '@/src/lib/utils';
+import ExecutorSelect from '../base/ExecutorSelect';
+import { useExecutorStore } from '@/src/store/model/useExecutorStore';
+import { GoChevronRight, GoInfinity } from 'react-icons/go';
+import { Button } from '../ui/button';
+import { FileCode } from 'lucide-react';
 
 interface BuilderMoreOptionsPanelProps {
     close: () => void;
     className: string;
 }
 
-export default function BuilderMoreOptionsPanel({ close, className }: BuilderMoreOptionsPanelProps) {
-
+export default function BuilderMoreOptionsPanel({
+    close,
+    className,
+}: BuilderMoreOptionsPanelProps) {
     const { executor, setExecutor } = useExecutorStore();
 
     return (
@@ -26,7 +27,6 @@ export default function BuilderMoreOptionsPanel({ close, className }: BuilderMor
                 className,
             )}
         >
-
             {/* agent / plan */}
             <Button
                 type="button"
@@ -37,13 +37,11 @@ export default function BuilderMoreOptionsPanel({ close, className }: BuilderMor
             >
                 <div className="flex gap-x-1.5">
                     <GoInfinity className="w-3.5 h-3.5 text-primary " />
-                    <span>
-                        Agentic
-                    </span>
+                    <span>Agentic</span>
                 </div>
                 <GoChevronRight />
             </Button>
-            
+
             {/* templates */}
             <Button
                 type="button"
@@ -58,9 +56,6 @@ export default function BuilderMoreOptionsPanel({ close, className }: BuilderMor
                 </div>
                 <GoChevronRight />
             </Button>
-
-
         </div>
-    )
+    );
 }
-
