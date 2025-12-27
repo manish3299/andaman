@@ -1,16 +1,12 @@
 import { cn } from '@/src/lib/utils';
 import { Textarea } from '../ui/textarea';
 import { Button } from '../ui/button';
-import { ArrowRight, FileCode } from 'lucide-react';
 import React, { useState, KeyboardEvent, useRef } from 'react';
 import { useUserSessionStore } from '@/src/store/user/useUserSessionStore';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import { useBuilderChatStore } from '@/src/store/code/useBuilderChatStore';
 import LoginModal from '../utility/LoginModal';
-import ExecutorSelect from '../base/ExecutorSelect';
 import { ChatRole } from '@winterfell/types';
-import BuilderTemplatesPanel from './BuilderTemplatesPanel';
-import { useExecutorStore } from '@/src/store/model/useExecutorStore';
 import { v4 as uuid } from 'uuid';
 import { useHandleClickOutside } from '@/src/hooks/useHandleClickOutside';
 import { TbExternalLink } from 'react-icons/tb';
@@ -19,10 +15,10 @@ import { RxCross2 } from 'react-icons/rx';
 import useGenerate from '@/src/hooks/useGenerate';
 import { useLimitStore } from '@/src/store/code/useLimitStore';
 import { useCurrentContract } from '@/src/hooks/useCurrentContract';
+import BuilderChatInputFeatures from './BuilderChatInputFeatures';
 
 export default function BuilderChatInput() {
     const [inputValue, setInputValue] = useState<string>('');
-    const { executor, setExecutor } = useExecutorStore();
     const [openLoginModal, setOpenLoginModal] = useState<boolean>(false);
     const { session } = useUserSessionStore();
 
@@ -39,6 +35,7 @@ export default function BuilderChatInput() {
     const contractId = params.contractId as string;
     const { showMessageLimit, setShowMessageLimit, showContractLimit, showRegenerateTime } =
         useLimitStore();
+    const [showMoreOptionsPanel, setShowMoreOptionsPanel] = useState<boolean>(false);
 
     useHandleClickOutside([templateButtonRef, templatePanelRef], setShowTemplatePanel);
 
@@ -101,12 +98,6 @@ export default function BuilderChatInput() {
             setShowMessageLimit(false);
         }
     }
-
-    const isDisabled =
-        (!inputValue.trim() && !contract.activeTemplate) ||
-        (!contract.activeTemplate && userMessagesLength >= 5) ||
-        showContractLimit ||
-        showMessageLimit;
 
     return (
         <>
@@ -203,61 +194,9 @@ export default function BuilderChatInput() {
                             </div>
                         )}
                     </div>
-
-                    <div className="flex items-center justify-between px-4 py-2.5 ">
-                        <div className="flex items-center gap-x-1">
-                            <ExecutorSelect value={executor} onChange={setExecutor} />
-
-                            <Button
-                                type="button"
-                                ref={templateButtonRef}
-                                disabled={hasExistingMessages}
-                                className={cn(
-                                    'group/btn bg-transparent hover:bg-transparent flex items-center gap-1.5 text-xs text-neutral-500 hover:text-neutral-300',
-                                    hasExistingMessages && 'cursor-not-allowed opacity-50',
-                                )}
-                                onClick={() => setShowTemplatePanel((prev) => !prev)}
-                            >
-                                <FileCode className="w-3.5 h-3.5 mb-0.5" />
-                                <span>templates</span>
-                            </Button>
-
-                            <div className="flex items-center gap-1.5 text-xs text-neutral-600 font-mono">
-                                <span className={cn(inputValue.length > 200 && 'text-red-500')}>
-                                    {inputValue.length}
-                                </span>
-                                <span className="text-neutral-800">/</span>
-                                <span className="text-neutral-700">200</span>
-                            </div>
-                        </div>
-
-                        <Button
-                            type="button"
-                            disabled={isDisabled}
-                            onClick={handleSubmit}
-                            className={cn(
-                                'group/submit flex items-center gap-2 h-8 w-9 px-2 py-1 rounded-[4px] text-xs font-mono',
-                                'disabled:cursor-not-allowed exec-button-dark',
-                                inputValue.trim() && contract.activeTemplate
-                                    ? 'bg-neutral-800 text-neutral-300 hover:text-neutral-200'
-                                    : 'bg-neutral-900 text-neutral-700',
-                            )}
-                        >
-                            <ArrowRight className="w-3 h-3" />
-                        </Button>
-                    </div>
+                    <BuilderChatInputFeatures />
                 </div>
             </div>
-
-            {showTemplatePanel && !hasExistingMessages && (
-                <div ref={templatePanelRef}>
-                    <BuilderTemplatesPanel
-                        closePanel={() => setShowTemplatePanel(false)}
-                        className="max-w-[21rem] bottom-16 left-28"
-                        setHasExistingMessages={setHasExistingMessages}
-                    />
-                </div>
-            )}
 
             <LoginModal opensignInModal={openLoginModal} setOpenSignInModal={setOpenLoginModal} />
         </>
