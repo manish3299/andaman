@@ -73,7 +73,7 @@ export default function BuilderDashboard(): JSX.Element {
                     duration: 0.3,
                     ease: [0.4, 0, 0.2, 1],
                 }}
-                className="pb-4 px-4 h-full flex-1 min-w-0"
+                className="hidden sm:flex sm:flex-1 pb-4 px-4 h-full min-w-0"
             >
                 <div className="w-full h-full z-10 border-neutral-800 border rounded-[4px] relative overflow-hidden">
                     {loading ? <BuilderLoader /> : <Editing />}

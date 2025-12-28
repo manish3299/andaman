@@ -71,7 +71,7 @@ export default function BuilderChats() {
 
     return (
         <div
-            className="w-full max-w-md min-w-md flex flex-col pt-4"
+            className="w-screen sm:w-full sm:max-w-md sm:min-w-md flex flex-col pt-4"
             style={{ height: 'calc(100vh - 3.5rem)' }}
         >
             <div className="flex-1 flex flex-col gap-y-3 text-light text-sm pl-4 overflow-y-auto min-h-0 custom-scrollbar">

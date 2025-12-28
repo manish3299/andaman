@@ -18,7 +18,6 @@ interface LoginModalProps {
 }
 
 function LoginLeftContent() {
-
     const logos = [
         { logo: IoSparkles, color: '#9e83ff' },
         { logo: SiRust, color: '#ff6b35' },
@@ -28,7 +27,7 @@ function LoginLeftContent() {
     return (
         <div className="absolute inset-0 flex flex-col justify-between p-6 md:p-8">
             <div className="flex items-start">
-                <AppLogo className='text-sm' />
+                <AppLogo className="text-sm" />
             </div>
 
             <div className="space-y-2 md:space-y-4 text-left">
@@ -48,14 +47,11 @@ function LoginLeftContent() {
                         <div
                             key={i}
                             className={cn(
-                            `text-[${l.color}] text-xl h-6 md:h-10 w-6 md:w-10 p-1 md:p-2 border-[0.5px] md:border border-neutral-500 rounded-[8px]`,
-                            'flex justify-center items-center'
-                        )}>
-                            <l.logo
-                                className={cn(
-                                    'size-4 md:size-5'
-                                )}
-                            />
+                                `text-[${l.color}] text-xl h-6 md:h-10 w-6 md:w-10 p-1 md:p-2 border-[0.5px] md:border border-neutral-500 rounded-[8px]`,
+                                'flex justify-center items-center',
+                            )}
+                        >
+                            <l.logo className={cn('size-4 md:size-5')} />
                         </div>
                     ))}
                 </div>
@@ -101,7 +97,9 @@ function LoginRightContent() {
                 >
                     Welcome to WINTERFELL
                 </h2>
-                <p className="text-[8px] md:text-[13px] text-light/80 tracking-wide">Sign in to your account</p>
+                <p className="text-[8px] md:text-[13px] text-light/80 tracking-wide">
+                    Sign in to your account
+                </p>
             </div>
 
             <Button
@@ -158,9 +156,9 @@ function LoginRightContent() {
                 />
             </div>
 
-            <div className='flex md:flex-none'>
+            <div className="flex md:flex-none">
                 <span className="text-[8px] md:text-xs text-neutral-300 tracking-wider">
-                    By signing in, you agree to our <br className='hidden md:flex' />
+                    By signing in, you agree to our <br className="hidden md:flex" />
                     <span className="text-[#9e83ff] hover:underline cursor-pointer">
                         Terms & Service
                     </span>{' '}
