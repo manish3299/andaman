@@ -149,7 +149,7 @@ export default function BuilderChatInput() {
                     </div>
                 )}
 
-                <div className="relative rounded-[8px] border border-neutral-800/80 overflow-hidden bg-darkest">
+                <div className="relative rounded-[8px] border border-neutral-800/80 bg-darkest">
                     <div className="relative flex flex-col">
                         <div className="absolute left-4 top-5 text-neutral-600 font-mono text-sm select-none">
                             &gt;
