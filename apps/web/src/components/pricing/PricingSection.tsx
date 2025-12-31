@@ -1,7 +1,11 @@
 'use client';
 import { usePricingPlanStore } from '@/src/store/user/usePricingPlanStore';
 import PricingCard from './PricingCard';
-import { TbTopologyStar2, TbTopologyStar3, TbTopologyStarRing3 } from 'react-icons/tb';
+import {
+    TbTopologyStar2,
+    TbTopologyStar3,
+    TbTopologyStarRing3,
+} from 'react-icons/tb';
 import { PricingPlanEnum } from '@/src/types/pricing-plan-types';
 
 export default function PricingSection() {
@@ -9,8 +13,21 @@ export default function PricingSection() {
     const isMonthly = pricingPlan === PricingPlanEnum.MONTHLY;
 
     return (
-        <div className="flex flex-col gap-y-6">
-            <div className="flex gap-x-6 mt-8">
+        <div className="relative flex flex-col w-full items-center flex-1 overflow-hidden">
+            <div
+                className="absolute inset-0 z-0 pointer-events-none"
+                style={{
+                    backgroundImage: `
+                            repeating-linear-gradient(-45deg, 
+                            rgba(56, 56, 56, 0.2) 0px, 
+                            rgba(255, 0, 100, 0) 2px, 
+                            transparent 2px, 
+                            transparent 8px)
+                        `,
+                }}
+            />
+
+            <div className="relative flex justify-around items-center flex-1 w-full max-w-[100rem] border-x border-neutral-700/60 bg-darker">
                 <PricingCard
                     icon={<TbTopologyStar2 className="size-5" />}
                     planType="Free"
@@ -24,6 +41,7 @@ export default function PricingSection() {
                         'Export code',
                     ]}
                 />
+
                 <PricingCard
                     icon={<TbTopologyStar3 className="size-5" />}
                     planType="Premium"
@@ -37,6 +55,7 @@ export default function PricingSection() {
                         'Export Code',
                     ]}
                 />
+
                 <PricingCard
                     icon={<TbTopologyStarRing3 className="size-5" />}
                     planType="Premium Plus"

@@ -7,10 +7,10 @@ export default function PricingPlanToggleNavbar() {
     const { pricingPlan, setPricingPlan } = usePricingPlanStore();
 
     return (
-        <div className="flex justify-center mt-8 select-none">
+        <div className="flex justify-center items-center select-none w-full border-y border-neutral-700/60">
             <div
                 className={cn(
-                    `relative w-full max-w-fit z-100 flex items-center justify-between mt-4`,
+                    `relative w-full max-w-fit z-100 flex items-center justify-between my-3`,
                     'px-1 py-1 rounded-[4px] transition-all duration-500 ease-in-out gap-x-1',
                     'text-[18px] tracking-wide bg-darkest border border-neutral-800',
                 )}

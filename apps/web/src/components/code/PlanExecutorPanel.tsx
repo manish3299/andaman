@@ -99,7 +99,7 @@ export default function PlanExecutorPanel({
     return (
         <div
             className={cn(
-                'max-w-lg px-4 py-2 pb-3.5 text-left relative transition-all duration-300 overflow-hidden',
+                'max-w-170 px-4 py-5 pb-20 text-left relative transition-all duration-300 overflow-x-hidden overflow-y-auto mt-1',
                 collapse ? 'max-h-48 min-h-48' : 'min-h-fit',
                 className,
             )}
