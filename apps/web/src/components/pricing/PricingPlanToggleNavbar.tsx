@@ -12,7 +12,7 @@ export default function PricingPlanToggleNavbar() {
                 className={cn(
                     `relative w-full max-w-fit z-100 flex items-center justify-between my-3`,
                     'px-1 py-1 rounded-[4px] transition-all duration-500 ease-in-out gap-x-1',
-                    'text-[18px] tracking-wide bg-darkest border border-neutral-800',
+                    'text-[18px] tracking-wide bg-darker border border-neutral-800 shadow-md',
                 )}
             >
                 <div

@@ -64,8 +64,8 @@ export default function PricingCard({
                                 planType === 'Premium Plus'
                                     ? 'bg-light text-darkest'
                                     : planType === 'Premium'
-                                        ? 'bg-primary text-light'
-                                        : 'bg-neutral-800 text-light',
+                                      ? 'bg-primary text-light'
+                                      : 'bg-neutral-800 text-light',
                             )}
                         >
                             {tagTitle}

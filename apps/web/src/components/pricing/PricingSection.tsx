@@ -1,11 +1,7 @@
 'use client';
 import { usePricingPlanStore } from '@/src/store/user/usePricingPlanStore';
 import PricingCard from './PricingCard';
-import {
-    TbTopologyStar2,
-    TbTopologyStar3,
-    TbTopologyStarRing3,
-} from 'react-icons/tb';
+import { TbTopologyStar2, TbTopologyStar3, TbTopologyStarRing3 } from 'react-icons/tb';
 import { PricingPlanEnum } from '@/src/types/pricing-plan-types';
 
 export default function PricingSection() {
@@ -27,7 +23,7 @@ export default function PricingSection() {
                 }}
             />
 
-            <div className="relative flex justify-around items-center flex-1 w-full max-w-[100rem] border-x border-neutral-700/60 bg-darker">
+            <div className="relative flex justify-around items-center flex-1 w-full max-w-[100rem] border-x border-neutral-700/60 bg-darkest">
                 <PricingCard
                     icon={<TbTopologyStar2 className="size-5" />}
                     planType="Free"

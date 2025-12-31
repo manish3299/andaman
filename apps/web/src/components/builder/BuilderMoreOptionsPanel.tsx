@@ -24,7 +24,7 @@ const executorData = {
         icon: FaTelegramPlane,
         color: '#FFD93D',
     },
-}
+};
 
 export default function BuilderMoreOptionsPanel({
     close,
@@ -81,7 +81,7 @@ export default function BuilderMoreOptionsPanel({
             {showTemplatePanel && (
                 <BuilderTemplatesPanel
                     closePanel={() => setShowTemplatePanel(false)}
-                    setHasExistingMessages={(x) => {}} 
+                    setHasExistingMessages={(x) => {}}
                 />
             )}
         </>
