@@ -12,6 +12,7 @@ import { toast } from 'sonner';
 import { useUserSessionStore } from '@/src/store/user/useUserSessionStore';
 import ExportPanel from './ExportPanel.';
 import { useCurrentContract } from '@/src/hooks/useCurrentContract';
+import VersionLockTicker from '../tickers/VersionLockTicker';
 
 export default function BuilderNavbarRightSection() {
     const [openWalletPanel, setOpenWalletPanel] = useState<boolean>(false);
@@ -67,7 +68,7 @@ export default function BuilderNavbarRightSection() {
     return (
         <div className="flex items-center justify-between gap-x-3 relative">
             <div className="flex items-center justify-center">
-                <ToolTipComponent content="upcoming" side="bottom">
+                <ToolTipComponent content="upcoming feature" side="bottom">
                     <Button
                         disabled={loading}
                         onClick={() => setOpenWalletPanel(true)}

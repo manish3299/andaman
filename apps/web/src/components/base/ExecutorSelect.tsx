@@ -51,10 +51,16 @@ export default function ExecutorSelect({
                         <GoInfinity />
                         Agentic
                     </SelectItem>
-                    <SelectItem value={EXECUTOR.PLAN} className="text-xs flex justify-between items-center gap-2">
-                            <FaTelegramPlane />
-                            Plan
-                       <VersionLockTicker className='absolute right-1 p-1 top-0.75' showText={false}/> 
+                    <SelectItem
+                        value={EXECUTOR.PLAN}
+                        className="text-xs flex justify-between items-center gap-2"
+                    >
+                        <FaTelegramPlane />
+                        Plan
+                        <VersionLockTicker
+                            className="absolute right-1 p-1 top-0.75"
+                            showText={false}
+                        />
                     </SelectItem>
                 </SelectContent>
             </Select>
