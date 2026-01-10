@@ -8,7 +8,7 @@ import { verifyTurnstileToken } from './signInController';
 
 export default async function signInController(req: Request, res: Response) {
     const { user, account, turnstileToken, linkingUserId } = req.body;
-
+    console.log('req body is : ', req.body);
     if (!user.email) {
         ResponseWriter.unauthorized(res);
         return;
@@ -32,11 +32,13 @@ export default async function signInController(req: Request, res: Response) {
     try {
         if (account.provider === 'github') {
             const github_username = await github_services.get_github_owner(account.access_token);
-            console.log('github username is : ', github_username);
+            console.log('github owner username is : ', github_username);
             if (linkingUserId) {
+                console.log('Linking GitHub to existing user:', linkingUserId);
                 const existingUser = await prisma.user.findUnique({
                     where: { id: linkingUserId },
                 });
+                console.log('first existingUser is : ', existingUser);
                 if (!existingUser) {
                     ResponseWriter.not_found(res, 'User to link not found');
                     return;
@@ -45,6 +47,7 @@ export default async function signInController(req: Request, res: Response) {
                 const userWithGithubId = await prisma.user.findUnique({
                     where: { githubId: account.providerAccountId },
                 });
+                console.log('userWithGithubId is : ', userWithGithubId);
                 if (userWithGithubId && userWithGithubId.id !== linkingUserId) {
                     ResponseWriter.unauthorized(res);
                     return;
@@ -63,12 +66,14 @@ export default async function signInController(req: Request, res: Response) {
                             : 'github',
                     },
                 });
+                console.log('finalUser after linking is : ', finalUser);
             } else {
                 // Regular GitHub sign-in
                 // First check by githubId
                 let existingUser = await prisma.user.findUnique({
                     where: { githubId: account.providerAccountId },
                 });
+                console.log('existingUser by githubId is : ', existingUser);
 
                 // Then check by email if not found
                 if (!existingUser) {
@@ -80,6 +85,7 @@ export default async function signInController(req: Request, res: Response) {
                 if (!existingUser) {
                     // New user - verify turnstile
                     const isValid = await verifyTurnstileToken(turnstileToken, clientIp);
+                    console.log('Turnstile validation result is : ', isValid);
                     if (!isValid) {
                         ResponseWriter.unauthorized(res, 'Turnstile verification failed');
                         return;
@@ -96,6 +102,7 @@ export default async function signInController(req: Request, res: Response) {
                             githubUsername: github_username,
                         },
                     });
+                    console.log('finalUser after creation is : ', finalUser);
                 } else {
                     // Existing user - update GitHub info
                     finalUser = await prisma.user.update({
@@ -114,14 +121,17 @@ export default async function signInController(req: Request, res: Response) {
                 }
             }
         } else if (account.provider === 'google') {
+            console.log('Processing Google sign-in');
             // Google sign-in
             const existingUser = await prisma.user.findUnique({
                 where: { email: user.email },
             });
+            console.log('existingUser for google is : ', existingUser);
 
             if (!existingUser) {
                 // New user - verify turnstile
                 const isValid = await verifyTurnstileToken(turnstileToken, clientIp);
+                console.log('Turnstile validation result is : ', isValid);
                 if (!isValid) {
                     ResponseWriter.unauthorized(res, 'Turnstile verification failed');
                     return;
@@ -135,6 +145,7 @@ export default async function signInController(req: Request, res: Response) {
                         provider: 'google',
                     },
                 });
+                console.log('finalUser after google creation is : ', finalUser);
             } else {
                 finalUser = await prisma.user.update({
                     where: { id: existingUser.id },
@@ -148,12 +159,13 @@ export default async function signInController(req: Request, res: Response) {
                             : 'google',
                     },
                 });
+                console.log('finalUser after google update is : ', finalUser);
             }
         } else {
             ResponseWriter.unauthorized(res, 'Unsupported provider');
             return;
         }
-
+        console.log('--------------------------------> finalUser is : ', finalUser);
         if (!finalUser) {
             ResponseWriter.server_error(res, 'Failed to process user');
             return;
@@ -164,9 +176,10 @@ export default async function signInController(req: Request, res: Response) {
             email: finalUser.email,
             name: finalUser.name,
         };
+        console.log('jwtPayload is : ', jwtPayload);
 
         const token = jwt.sign(jwtPayload, env.SERVER_JWT_SECRET, { expiresIn: '30d' });
-
+        console.log('token is : ', token);
         return res.json({
             success: true,
             user: {

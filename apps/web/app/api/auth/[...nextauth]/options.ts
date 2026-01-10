@@ -56,6 +56,7 @@ export const authOption: AuthOptions = {
                         },
                         { withCredentials: true },
                     );
+                    console.log('signin response:', response.data);
 
                     const result = response.data;
 

@@ -17,7 +17,7 @@ export default async function signInController(req: Request, res: Response) {
     try {
         const { user, account, turnstileToken, linkingUserId } = req.body;
         const isLinking = !!linkingUserId;
-        console.log('req body is : ', req.body);
+
         if (!isLinking) {
             if (!turnstileToken) {
                 return res.status(400).json({ success: false });
