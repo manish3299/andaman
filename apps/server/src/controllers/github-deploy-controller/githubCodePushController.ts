@@ -37,7 +37,6 @@ export default async function githubCodePushController(req: Request, res: Respon
 
         const db_repo = contract.githubRepoName;
         const owner = await github_services.get_github_owner(user.githubAccessToken);
-
         // case 1 -> db_repo_name = user send repo_naem
         if (db_repo === repo_name) {
             await github_worker_queue.enqueue({

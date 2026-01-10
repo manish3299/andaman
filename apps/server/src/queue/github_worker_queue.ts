@@ -1,6 +1,5 @@
 import { Job, Queue, Worker } from 'bullmq';
 import { Octokit, RestEndpointMethodTypes } from '@octokit/rest';
-import { RequestError } from '@octokit/request-error';
 import queue_config from '../configs/config.queue';
 import { FileContent, GithubPushJobData } from '../types/github_worker_queue_types';
 import { github_services } from '../services/init';
@@ -17,7 +16,7 @@ export class GithubWorkerQueue {
 
     public async enqueue(job_data: GithubPushJobData) {
         const job_id = `${job_data.user_id}-${job_data.repo_name}-${Date.now()}`;
-        return this.queue.add('github-push', job_data, {
+        return await this.queue.add('github-push', job_data, {
             jobId: job_id,
             attempts: 2,
             backoff: { type: 'exponential', delay: 2000 },
@@ -29,7 +28,6 @@ export class GithubWorkerQueue {
     private async process_job(job: Job<GithubPushJobData>) {
         const { github_access_token, owner, repo_name, contract_id } = job.data;
         const octokit = new Octokit({ auth: github_access_token });
-
         try {
             const { created } = await this.ensure_repo_for_contract(
                 octokit,
@@ -37,6 +35,7 @@ export class GithubWorkerQueue {
                 repo_name,
                 contract_id,
             );
+            console.log('created is : ', created);
             let files = await github_services.fetch_codebase(contract_id);
             if (!files || !files.length) {
                 throw new Error('No files found in codebase');
@@ -45,7 +44,11 @@ export class GithubWorkerQueue {
             if (created && !files.some((f) => f.path === 'README.md')) {
                 files = [...files, { path: 'README.md', content: generateWinterfellReadme() }];
             }
-            await this.upsert_code(octokit, owner, repo_name, files);
+            try {
+                await this.upsert_code(octokit, owner, repo_name, files);
+            } catch (err) {
+                console.error('Error upserting code to GitHub:', err);
+            }
 
             return {
                 success: true,
@@ -70,13 +73,12 @@ export class GithubWorkerQueue {
         }
 
         let repo_exists = false;
+        console.log('repo exists check for repo: ', repo);
         try {
             await octokit.repos.get({ owner, repo });
             repo_exists = true;
-        } catch (err) {
-            if (!(err instanceof RequestError && err.status === 404)) {
-                throw err;
-            }
+        } catch {
+            repo_exists = false;
         }
 
         if (!repo_exists) {
@@ -94,7 +96,8 @@ export class GithubWorkerQueue {
         let ref;
         try {
             ref = await octokit.git.getRef({ owner, repo, ref: 'heads/main' });
-        } catch {
+        } catch (err) {
+            console.error('Error fetching main branch, trying master...', err);
             ref = await octokit.git.getRef({ owner, repo, ref: 'heads/master' });
         }
 
@@ -116,6 +119,9 @@ export class GithubWorkerQueue {
 
         const tree_entries: RestEndpointMethodTypes['git']['createTree']['parameters']['tree'] = [];
         for (const file of files) {
+            // GitHub API requires paths without leading slashes
+            const sanitized_path = file.path.replace(/^\/+/, '');
+
             const blob = await octokit.git.createBlob({
                 owner,
                 repo,
@@ -124,13 +130,13 @@ export class GithubWorkerQueue {
             });
 
             tree_entries.push({
-                path: file.path,
+                path: sanitized_path,
                 sha: blob.data.sha,
                 mode: '100644',
                 type: 'blob',
             });
 
-            existing.delete(file.path);
+            existing.delete(sanitized_path);
         }
 
         for (const [removed_path] of existing) {

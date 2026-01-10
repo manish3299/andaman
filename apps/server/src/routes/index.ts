@@ -1,6 +1,6 @@
 import { Request, Response, Router } from 'express';
 // controllers
-import signInController from '../controllers/user-controller/signInController';
+import signInController from '../controllers/user-controller/signin_controller';
 import getFilesController from '../controllers/chat-controller/getFilesController';
 import createOrderController from '../controllers/payment-controller/createOrderController';
 import updateSubscriptionController from '../controllers/payment-controller/updateSubscriptionController';
