@@ -102,7 +102,7 @@ export default function ClientDocsRightSidebar() {
 
     return (
         <div className="h-full z-50 fixed w-[20vw] flex flex-col top-22 items-start px-8">
-            <div className="flex flex-col gap-y-5 text-left text-xs tracking-wide text-light/70 relative">
+            <div className="flex flex-col gap-y-5 text-left text-xs tracking-wide text-neutral-600 dark:text-light/70 relative">
                 <div
                     className="absolute -left-4 top-4 h-3 w-0.5 rounded-full bg-primary shadow-[0_0_10px_2px_rgba(108,68,252,0.8)] transition-all duration-500 ease-out"
                     style={{
@@ -114,7 +114,7 @@ export default function ClientDocsRightSidebar() {
                         key={sub.id}
                         onClick={() => handleClick(index, sub.id)}
                         className={`tracking-wider select-none relative transition-colors duration-300 cursor-pointer text-[13px]
-                            ${activeIndex === index ? 'text-white' : 'hover:text-white'}
+                            ${activeIndex === index ? 'text-neutral-900 dark:text-white' : 'hover:text-neutral-900 dark:hover:text-white'}
                         `}
                     >
                         {sub.label}

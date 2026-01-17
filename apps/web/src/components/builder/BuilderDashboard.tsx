@@ -1,21 +1,20 @@
 'use client';
-import { motion, AnimatePresence } from 'framer-motion';
 import BuilderChats from './BuilderChats';
 import CodeEditor from '../code/CodeEditor';
-import { useBuilderChatStore } from '@/src/store/code/useBuilderChatStore';
-import BuilderLoader from './BuilderLoader';
-import { JSX, useEffect } from 'react';
-import { useCodeEditor } from '@/src/store/code/useCodeEditor';
 import SidePanel from '../code/SidePanel';
-import EditorSidePanel, { SidePanelValues } from '../code/EditorSidePanel';
 import Terminal from '../code/Terminal';
+import BuilderLoader from './BuilderLoader';
+import FileTree from '../code/Filetree';
+import GithubPanel from '../code/GithubPanel';
+import PlanPanel from '../code/PlanPanel';
+import EditorSidePanel, { SidePanelValues } from '../code/EditorSidePanel';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useCodeEditor } from '@/src/store/code/useCodeEditor';
+import { JSX, useEffect } from 'react';
 import { useWebSocket } from '@/src/hooks/useWebSocket';
 import { useTerminalLogStore } from '@/src/store/code/useTerminalLogStore';
 import { IncomingPayload, TerminalSocketData, WSServerIncomingPayload } from '@winterfell/types';
 import { useSidePanelStore } from '@/src/store/code/useSidePanelStore';
-import FileTree from '../code/Filetree';
-import GithubPanel from '../code/GithubPanel';
-import PlanPanel from '../code/PlanPanel';
 import { useCurrentContract } from '@/src/hooks/useCurrentContract';
 
 export default function BuilderDashboard(): JSX.Element {
@@ -75,7 +74,7 @@ export default function BuilderDashboard(): JSX.Element {
                 }}
                 className="hidden sm:flex sm:flex-1 pb-4 px-4 h-full min-w-0"
             >
-                <div className="w-full h-full z-10 border-neutral-800 border rounded-[4px] relative overflow-hidden">
+                <div className="w-full h-full z-10 border-neutral-800 border rounded-1 relative overflow-hidden">
                     {loading ? <BuilderLoader /> : <Editing />}
                 </div>
             </motion.div>
@@ -83,16 +82,17 @@ export default function BuilderDashboard(): JSX.Element {
     );
 }
 
-function Editing() {
+function Editing(): JSX.Element {
     const { currentState } = useSidePanelStore();
-    function renderSidePanels() {
+
+    function renderSidePanels(): JSX.Element {
         switch (currentState) {
             case SidePanelValues.FILE:
                 return <FileTree />;
             case SidePanelValues.GITHUB:
                 return <GithubPanel />;
             default:
-                return <div></div>;
+                return <></>;
         }
     }
 

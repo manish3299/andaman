@@ -36,7 +36,6 @@ export default function Home() {
     return (
         <div className="bg-neutral-950 w-screen h-screen flex flex-col items-center relative">
             <HomeNavbar />
-
             <div className="flex-1 grid grid-rows-[26%_35%_1%_35%] w-full max-w-[70%] mt-10 gap-y-2 z-10 overflow-hidden">
                 <UserContracts />
                 <ContractTemplates />
