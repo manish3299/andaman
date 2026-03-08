@@ -44,7 +44,7 @@ export default class Generator {
 
     constructor() {
         this.gpt_planner = new ChatOpenAI({
-            model: 'moonshotai/kimi-dev-72b',
+            model: 'z-ai/glm-5',
             temperature: 0.2,
             streaming: false,
             configuration: {

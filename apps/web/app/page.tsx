@@ -8,6 +8,7 @@ import Navbar from '@/src/components/nav/Navbar';
 import Faq from '@/src/components/base/Faq';
 import ReviewsSection from '@/src/components/utility/ReviewsSection';
 import { useRef } from 'react';
+import SubscriptionPlans from '@/src/components/utility/SubscriptionCard';
 
 export default function Page() {
     const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -20,6 +21,7 @@ export default function Page() {
                 <Features />
                 <WhoWeAre />
                 <ReviewsSection />
+                <SubscriptionPlans />
                 <Faq />
                 <Footer />
             </div>

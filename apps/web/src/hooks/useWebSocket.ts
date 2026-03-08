@@ -21,7 +21,6 @@ export const useWebSocket = () => {
 
         try {
             // socket.current = getWebSocketClient(token, contractId);
-
             interval = setInterval(() => {
                 if (socket.current) {
                     setIsConnected(socket.current.is_connected ?? false);

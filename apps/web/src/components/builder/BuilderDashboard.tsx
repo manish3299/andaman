@@ -10,7 +10,7 @@ import PlanPanel from '../code/PlanPanel';
 import EditorSidePanel, { SidePanelValues } from '../code/EditorSidePanel';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCodeEditor } from '@/src/store/code/useCodeEditor';
-import { JSX, useEffect } from 'react';
+import { JSX, useEffect, useState } from 'react';
 import { useWebSocket } from '@/src/hooks/useWebSocket';
 import { useTerminalLogStore } from '@/src/store/code/useTerminalLogStore';
 import { IncomingPayload, TerminalSocketData, WSServerIncomingPayload } from '@winterfell/types';
