@@ -29,7 +29,7 @@ const featureData = [
     },
     {
         topTitle: 'COMPLETE',
-        centerTitle: 'WINTERFELL',
+        centerTitle: 'SARVRIC',
         bottomTitle: 'Full Stack',
         description: 'From contract to client SDK to frontend boilerplate',
         icon: LiaServicestack,

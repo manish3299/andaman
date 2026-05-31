@@ -83,7 +83,7 @@ export const contents: SidebarContent[] = [
         ],
     },
     {
-        title: 'Winterfell Terminal',
+        title: 'Sarvric Terminal',
         type: ClientDocsPanel.WINTER_SHELL,
         subSections: [
             { id: WinterShellSubContent.WINTER_SHELL_INFO, label: 'Winter Shell info' },

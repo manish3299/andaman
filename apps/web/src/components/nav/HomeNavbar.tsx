@@ -15,7 +15,7 @@ export default function HomeNavbar() {
         <div className="w-full min-h-14 text-light/70 px-6 select-none relative flex justify-between items-center z-10">
             <div className="text-[#C3C3C3] text-[17px] tracking-[0.5rem] flex justify-start items-center gap-x-3 cursor-pointer group">
                 <LiaServicestack size={28} className="text-primary" />
-                WINTERFELL
+                SARVRIC
             </div>
             <div className="flex items-center justify-center gap-x-6 text-sm">
                 <div className="font-semibold cursor-pointer flex items-center justify-center gap-x-2 hover:text-primary text-light/70 transition-transform hover:-translate-y-0.5">

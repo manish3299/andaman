@@ -5,7 +5,7 @@ import { Button } from '../ui/button';
 import { RiCodeSSlashFill } from 'react-icons/ri';
 import City from './City';
 import ActionTickers from '../tickers/ActionTickers';
-import DashboardTextAreaComponent from './DashboardTextAreaComponent';
+import WaitListForm from './WaitListForm';
 import HighlighterTicker from '../tickers/HighlighterTicker';
 import { useRouter } from 'next/navigation';
 
@@ -62,28 +62,11 @@ export default function Hero({ inputRef }: HeroProps) {
                     </motion.div>
 
                     <HighlighterTicker />
-                    <DashboardTextAreaComponent inputRef={inputRef} />
+                    <WaitListForm />
                     <ActionTickers />
                 </motion.div>
 
-                <div className="absolute bottom-2 left-0 md:bottom-12 md:left-10 text-[10px] md:text-[18px]">
-                    <div className="md:max-w-2xl max-w-sm flex flex-col justify-start items-start text-light font-semibold">
-                        <span>Powered by AI + Anchor</span>
-                        <span className="">Build Solana Smart Contracts 10x Faster</span>
-                        <div className="flex items-end justify-center gap-x-2 md:gap-x-3 mt-2">
-                            <Button className="font-semibold text-xs md:text-base !px-4 md:!px-6 rounded-[4px]">
-                                Explore Playground
-                                <RiCodeSSlashFill />
-                            </Button>
-                            <span
-                                onClick={() => router.push('/docs')}
-                                className="font-light text-primary tracking-wide md:text-xs border-b border-primary py-1 cursor-pointer"
-                            >
-                                Read Our Docs
-                            </span>
-                        </div>
-                    </div>
-                </div>
+               
             </main>
         </motion.div>
     );

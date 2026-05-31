@@ -38,7 +38,7 @@ export default function DownloadZipFileComponent() {
             const url = window.URL.createObjectURL(blob);
             const link = document.createElement('a');
             link.href = url;
-            link.download = `winterfell-${contract_name}.zip`;
+            link.download = `sarvric-${contract_name}.zip`;
             document.body.appendChild(link);
             link.click();
 

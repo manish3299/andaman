@@ -60,7 +60,7 @@ function SubscriptionCard({
                 <div className="flex justify-between items-start mb-5 sm:mb-6">
                     <div>
                         <div className="text-[10px] sm:text-xs font-medium opacity-70 uppercase tracking-wider mb-1">
-                            Winterfell
+                            Sarvric
                         </div>
                         <h2 className="text-xl sm:text-2xl font-bold tracking-tight">
                             {plan === 'PREMIUM_PLUS' ? 'Premium+' : plan}
@@ -141,14 +141,14 @@ function SubscriptionCard({
 export const plans: Plan[] = [
     {
         plan: 'FREE',
-        priceMonthly: '₹0',
-        priceYearly: '₹0',
+        priceMonthly: '$0',
+        priceYearly: '$0',
         features: ['1 Contract / Week', '30 AI Messages', 'Devnet Only', 'Basic Support'],
     },
     {
         plan: 'PREMIUM_PLUS',
-        priceMonthly: '₹1,999',
-        priceYearly: '₹19,990',
+        priceMonthly: '$9.99',
+        priceYearly: '$99',
         features: [
             'Unlimited Contracts',
             'Unlimited AI Chat',
@@ -161,8 +161,8 @@ export const plans: Plan[] = [
     },
     {
         plan: 'PREMIUM',
-        priceMonthly: '₹799',
-        priceYearly: '₹7,990',
+        priceMonthly: '$19.99',
+        priceYearly: '$199',
         features: [
             '10 Contracts / Month',
             '300 AI Messages',
@@ -186,7 +186,7 @@ export default function SubscriptionPlans() {
 
             <div className="relative z-10 mb-12">
                 <h1 className="text-3xl sm:text-5xl font-extrabold text-white mb-4">
-                    Choose Your Winterfell Plan
+                    Choose Your Sarvric Plan
                 </h1>
                 <p className="text-neutral-400 max-w-2xl mx-auto text-sm sm:text-lg">
                     Get access to premium features designed to boost productivity and simplify your

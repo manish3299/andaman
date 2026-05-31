@@ -43,7 +43,7 @@ export default function PricingSection() {
                     planType="Premium"
                     tagTitle="Recommended for you"
                     description="Get more access to our most popular features"
-                    price={isMonthly ? '$799/mo' : '$7990/year'}
+                    price={isMonthly ? '$9.99/mo' : '$99/year'}
                     features={[
                         `${isMonthly ? '10 contracts/month' : '120 contracts/year'}`,
                         `${isMonthly ? '300 AI messages' : '3600 AI messages'}`,
@@ -57,7 +57,7 @@ export default function PricingSection() {
                     planType="Premium Plus"
                     tagTitle="Never Stop"
                     description="Get more access to our most popular features"
-                    price={isMonthly ? '$1999/mo' : '$19,990/year'}
+                    price={isMonthly ? '$19.99/mo' : '$199/year'}
                     features={[
                         `${isMonthly ? '30 contracts/month' : '360 contracts/year'}`,
                         '300 AI messages',

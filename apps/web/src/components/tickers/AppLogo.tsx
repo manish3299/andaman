@@ -12,7 +12,7 @@ export default function AppLogo({ className, size = 20, showLogoText = true }: A
     return (
         <div className={cn('flex items-center gap-x-2', doto.className, className)}>
             <LiaServicestack size={size} className="text-primary transition-all duration-500" />
-            {showLogoText && <span className="tracking-[0.1rem] font-black">WINTERFELL</span>}
+            {showLogoText && <span className="tracking-[0.1rem] font-black">SARVRIC</span>}
         </div>
     );
 }

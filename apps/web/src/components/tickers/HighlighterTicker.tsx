@@ -9,7 +9,7 @@ export default function HighlighterTicker() {
             transition={{ delay: 0.7, duration: 0.6 }}
             className="text-[#a7a7a7] text-xs md:text-sm mb-6 font-mono tracking-normal md:tracking-wider"
         >
-            Winterfell eats{' '}
+            Sarvric eats{' '}
             <span className="text-white">
                 <Highlighter action="highlight" padding={5} iterations={1} color="#6741EF">
                     months

@@ -1,7 +1,7 @@
 const PLANS = {
-    FREE: { amount: 0, currency: 'INR', interval: 'month' },
-    PREMIUM: { amount: 799, currency: 'INR', interval: 'month' },
-    PREMIUM_PLUS: { amount: 1599, currency: 'INR', interval: 'month' },
+    FREE: { amount: 0, currency: '$', interval: 'month' },
+    PREMIUM: { amount: 9.99, currency: '$', interval: 'month' },
+    PREMIUM_PLUS: { amount: 19.99, currency: '$', interval: 'month' },
 } as const;
 
 export default PLANS;

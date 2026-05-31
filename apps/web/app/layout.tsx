@@ -7,22 +7,22 @@ import WalletProviders from '@/src/providers/WalletProviders';
 import { Toaster } from 'sonner';
 
 export const metadata: Metadata = {
-    title: 'Winterfell',
+    title: 'Sarvric',
     description:
-        'Winterfell is an AI-powered platform for building and deploying Solana smart contracts with Anchor, end-to-end.',
-    metadataBase: new URL('https://winterfell.dev'),
+        'Sarvric is an AI-powered platform for building and deploying Solana smart contracts with Anchor, end-to-end.',
+    metadataBase: new URL('https://sarvric.com'),
     openGraph: {
-        title: 'Winterfell',
+        title: 'Sarvric',
         description:
-            'Winterfell is an AI-powered platform for building and deploying Solana smart contracts with Anchor, end-to-end.',
-        url: 'https://winterfell.dev',
-        siteName: 'Winterfell',
+            'Sarvric is an AI-powered platform for building and deploying Solana smart contracts with Anchor, end-to-end.',
+        url: 'https://sarvric.com',
+        siteName: 'Sarvric',
         images: [
             {
                 url: '/images/winterfell-dashboard.png',
                 width: 1200,
                 height: 630,
-                alt: 'Winterfell Preview',
+                alt: ' Preview',
             },
         ],
         type: 'website',
@@ -30,9 +30,9 @@ export const metadata: Metadata = {
 
     twitter: {
         card: 'summary_large_image',
-        title: 'Winterfell | Smart Contract Generator',
+        title: 'Sarvric | Smart Contract Generator',
         description:
-            'Winterfell is an AI-powered platform for building and deploying Solana smart contracts with Anchor, end-to-end.',
+            'Sarvric is an AI-powered platform for building and deploying Solana smart contracts with Anchor, end-to-end.',
         images: ['/images/winterfell-dashboard.png'],
     },
 };
