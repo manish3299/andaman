@@ -1,6 +1,6 @@
-# Winterfell: AI-Powered Rust Smart Contract Platform
+# Sarvric: AI-Powered Rust Smart Contract Platform
 
-**Winterfell** is an AI-powered platform for building, editing, deploying, and interacting with Rust-based smart contracts on Solana using Anchor. It aims to simplify the entire smart contract workflow, from AI-assisted contract generation to client SDK creation and frontend integration.
+**Sarvric** is an AI-powered platform for building, editing, deploying, and interacting with Rust-based smart contracts on Solana using Anchor. It aims to simplify the entire smart contract workflow, from AI-assisted contract generation to client SDK creation and frontend integration.
 
 ---
 
