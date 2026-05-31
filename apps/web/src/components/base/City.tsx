@@ -13,21 +13,43 @@ export default function City3D({ className = '' }: City3DProps) {
     const animationFrameRef = useRef<number>(0);
 
     useEffect(() => {
+        if (typeof window === 'undefined') return;
+
         const container = containerRef.current;
         if (!container) return;
 
-        const isXL = () => window.innerWidth >= 1280;
+        let renderer: THREE.WebGLRenderer;
 
-        const renderer = new THREE.WebGLRenderer({ antialias: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
+        try {
+            const canvas = document.createElement('canvas');
 
-        if (window.innerWidth > 800) {
-            renderer.shadowMap.enabled = true;
-            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+
+            if (!gl) {
+                console.warn('WebGL not supported on this device');
+                return;
+            }
+
+            renderer = new THREE.WebGLRenderer({
+                antialias: true,
+                powerPreference: 'high-performance',
+            });
+
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+            if (window.innerWidth > 800) {
+                renderer.shadowMap.enabled = true;
+                renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            }
+
+            container.appendChild(renderer.domElement);
+            rendererRef.current = renderer;
+        } catch (error) {
+            console.warn('Failed to create WebGL renderer:', error);
+            return;
         }
 
-        container.appendChild(renderer.domElement);
-        rendererRef.current = renderer;
+        const isXL = () => window.innerWidth >= 1280;
 
         const camera = new THREE.PerspectiveCamera(
             20,
@@ -35,6 +57,7 @@ export default function City3D({ className = '' }: City3DProps) {
             1,
             500,
         );
+
         camera.position.set(0, 2, 14);
 
         const scene = new THREE.Scene();
@@ -45,21 +68,22 @@ export default function City3D({ className = '' }: City3DProps) {
         const uSpeed = 0.001;
         let createCarPos = true;
 
-        // Background
         const bg = 0x6c44fc;
         scene.background = new THREE.Color(bg);
         scene.fog = new THREE.Fog(bg, 10, 16);
 
-        // Utils
         const mathRandom = (n = 8) => -Math.random() * n + Math.random() * n;
 
-        // Buildings
         function init() {
             const segments = 2;
 
             for (let i = 0; i < 100; i++) {
                 const geo = new THREE.BoxGeometry(1, 1, 1, segments, segments, segments);
-                const mat = new THREE.MeshStandardMaterial({ color: 0x000000 });
+
+                const mat = new THREE.MeshStandardMaterial({
+                    color: 0x000000,
+                });
+
                 const wire = new THREE.MeshLambertMaterial({
                     color: 0xffffff,
                     wireframe: true,
@@ -72,7 +96,8 @@ export default function City3D({ className = '' }: City3DProps) {
                 const floor = new THREE.Mesh(geo, mat);
 
                 cube.add(wireMesh);
-                cube.castShadow = cube.receiveShadow = true;
+                cube.castShadow = true;
+                cube.receiveShadow = true;
 
                 cube.scale.y = 0.1 + Math.abs(mathRandom(8));
                 cube.scale.x = cube.scale.z = 0.9 + mathRandom(0.1);
@@ -80,23 +105,27 @@ export default function City3D({ className = '' }: City3DProps) {
                 cube.position.set(Math.round(mathRandom()), 0, Math.round(mathRandom()));
 
                 floor.scale.y = 0.05;
+
                 floor.position.set(cube.position.x, 0, cube.position.z);
 
                 town.add(floor);
                 town.add(cube);
             }
 
-            // Particles
             const pGeo = new THREE.CircleGeometry(0.01, 3);
-            const pMat = new THREE.MeshToonMaterial({ color: 0xffff00 });
+
+            const pMat = new THREE.MeshToonMaterial({
+                color: 0xffff00,
+            });
 
             for (let i = 0; i < 300; i++) {
                 const p = new THREE.Mesh(pGeo, pMat);
+
                 p.position.set(mathRandom(5), mathRandom(5), mathRandom(5));
+
                 smoke.add(p);
             }
 
-            // Ground
             const ground = new THREE.Mesh(
                 new THREE.PlaneGeometry(60, 60),
                 new THREE.MeshPhongMaterial({
@@ -105,6 +134,7 @@ export default function City3D({ className = '' }: City3DProps) {
                     opacity: 0.9,
                 }),
             );
+
             ground.rotation.x = -Math.PI / 2;
             ground.position.y = -0.001;
             ground.receiveShadow = true;
@@ -112,67 +142,84 @@ export default function City3D({ className = '' }: City3DProps) {
             city.add(ground);
         }
 
-        // Lights
         const ambient = new THREE.AmbientLight(0xffffff, 4);
+
         const front = new THREE.SpotLight(0xffffff, 20);
+
         const back = new THREE.PointLight(0xffffff, 0.5);
 
         front.position.set(5, 5, 5);
         front.castShadow = true;
+
         back.position.set(0, 6, 0);
 
         smoke.position.y = 2;
 
-        scene.add(ambient, back);
-        city.add(front, smoke, town);
+        scene.add(ambient);
+        scene.add(back);
+
+        city.add(front);
+        city.add(smoke);
+        city.add(town);
+
         scene.add(city);
 
         city.add(new THREE.GridHelper(60, 120, 0xff0000, 0x000000));
 
-        // Cars
         const createCars = (scale = 0.1, pos = 20) => {
             const car = new THREE.Mesh(
                 new THREE.BoxGeometry(1, scale / 40, scale / 40),
-                new THREE.MeshToonMaterial({ color: 0xffff00 }),
+                new THREE.MeshToonMaterial({
+                    color: 0xffff00,
+                }),
             );
 
             if (createCarPos) {
                 createCarPos = false;
+
                 car.position.set(-pos, Math.abs(mathRandom(5)), mathRandom(3));
             } else {
                 createCarPos = true;
+
                 car.position.set(mathRandom(3), Math.abs(mathRandom(5)), -pos);
+
                 car.rotation.y = Math.PI / 2;
             }
 
             city.add(car);
         };
 
-        for (let i = 0; i < 60; i++) createCars();
+        for (let i = 0; i < 60; i++) {
+            createCars();
+        }
 
-        // Mouse (hover only)
-        const mouse = { x: 0, y: 0 };
+        const mouse = {
+            x: 0,
+            y: 0,
+        };
 
         function onMouseMove(e: MouseEvent) {
             if (!isXL()) return;
 
             mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+
             mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
         }
 
-        // Resize
         function onResize() {
             camera.aspect = window.innerWidth / window.innerHeight;
+
             camera.updateProjectionMatrix();
+
             renderer.setSize(window.innerWidth, window.innerHeight);
         }
 
-        // Animate
         function animate() {
             animationFrameRef.current = requestAnimationFrame(animate);
 
             if (isXL()) {
                 city.rotation.y -= (mouse.x * 8 - camera.rotation.y) * uSpeed;
+
                 city.rotation.x -= (-(mouse.y * 2) - camera.rotation.x) * uSpeed;
             } else {
                 city.rotation.y += 0.001;
@@ -184,6 +231,7 @@ export default function City3D({ className = '' }: City3DProps) {
             smoke.rotation.x += 0.01;
 
             camera.lookAt(city.position);
+
             renderer.render(scene, camera);
         }
 
@@ -195,18 +243,21 @@ export default function City3D({ className = '' }: City3DProps) {
 
         return () => {
             window.removeEventListener('resize', onResize);
+
             window.removeEventListener('mousemove', onMouseMove);
 
             cancelAnimationFrame(animationFrameRef.current);
 
-            if (rendererRef.current && container) {
+            if (rendererRef.current && container && rendererRef.current.domElement.parentNode) {
                 container.removeChild(rendererRef.current.domElement);
+
                 rendererRef.current.dispose();
             }
 
             scene.traverse((obj) => {
                 if (obj instanceof THREE.Mesh) {
                     obj.geometry.dispose();
+
                     if (Array.isArray(obj.material)) {
                         obj.material.forEach((m) => m.dispose());
                     } else {

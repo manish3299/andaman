@@ -8,8 +8,6 @@ import ActionTickers from '../tickers/ActionTickers';
 import DashboardTextAreaComponent from './DashboardTextAreaComponent';
 import HighlighterTicker from '../tickers/HighlighterTicker';
 import { useRouter } from 'next/navigation';
-import { useTemplateStore } from '@/src/store/user/useTemplateStore';
-import Marketplace from '@/src/lib/server/marketplace-server';
 
 interface HeroProps {
     inputRef: ForwardedRef<HTMLTextAreaElement>;
@@ -20,16 +18,7 @@ export default function Hero({ inputRef }: HeroProps) {
     const isInView = useInView(heroRef, { once: true });
     const controls = useAnimation();
     const router = useRouter();
-    const { setTemplates } = useTemplateStore();
 
-    useEffect(() => {
-        const get_templates = async () => {
-            const response = await Marketplace.getTemplates();
-            setTemplates(response);
-        };
-        get_templates();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
     useEffect(() => {
         if (isInView) {
             controls.start('visible');
